@@ -1,0 +1,507 @@
+{
+  "manifest_version": 2,
+  "generated_at": "2026-07-16T21:42:15.589268+08:00",
+  "project": "Toward Renewable and Scenario-Aware Jailbreak Benchmarking for Open-Weight LLMs",
+  "formal_route": "harmful_v2 / v2formal",
+  "completion_audit": {
+    "path": "results/v2formal_20260715/completion_audit.json",
+    "size_bytes": 19215,
+    "sha256": "091d4f32655e8f91ace4dc3422496965bb31cfae48187fca5f8ef08aabff5851",
+    "records": null
+  },
+  "dataset": {
+    "harmful_records": 50,
+    "categories": 5,
+    "records_per_category": 10,
+    "subcategory_labels_unique": 50,
+    "labeling": "model-authored, definition-driven, automatically validated; no human annotation",
+    "claim_boundary": "protocol-based reconstruction, not human-validated ground truth"
+  },
+  "target_models": {
+    "deepseek-v4-flash": {
+      "backend": "OpenAI-compatible API",
+      "final_max_tokens_by_experiment": {
+        "phase2": 1024,
+        "phase3": 1024,
+        "benign": 1024,
+        "a6_matched": 1024
+      }
+    },
+    "llama3.1-8b": {
+      "model_id": "llama3.1:8b",
+      "backend": "Ollama",
+      "final_max_tokens_by_experiment": {
+        "phase2": 512,
+        "a6_matched": 1024
+      }
+    },
+    "qwen3-8b-nothink": {
+      "model_id": "qwen3:8b",
+      "backend": "Ollama",
+      "think": false,
+      "final_max_tokens_by_experiment": {
+        "phase2": 512,
+        "phase3": 1024,
+        "benign": 1024,
+        "a6_matched": 1024
+      }
+    },
+    "gemma4-12b-it": {
+      "model_id": "google/gemma-4-12B-it",
+      "backend": "MLX text path",
+      "final_max_tokens_by_experiment": {
+        "phase2": 256
+      }
+    },
+    "gemma4-12b-obliterated": {
+      "model_id": "OBLITERATUS/Gemma-4-12B-OBLITERATED",
+      "backend": "MLX text path",
+      "final_max_tokens_by_experiment": {
+        "phase2": 256
+      }
+    }
+  },
+  "shared_decoding": {
+    "temperature": 0.0,
+    "seed": 42,
+    "multiturn_intermediate_max_tokens": 128
+  },
+  "phase2": {
+    "design": "20 stratified behaviors × 3 attacks × 4 scenarios",
+    "records_per_model": 240,
+    "attacks": [
+      "A0_direct",
+      "A1_pair",
+      "A2_persona"
+    ],
+    "scenarios": [
+      "S1_direct",
+      "S2_multiturn",
+      "S3_longcontext",
+      "S4_agent"
+    ],
+    "pair_note": "Qwen3-8B no-think is the PAIR optimization target; its A1 result is in-sample."
+  },
+  "phase3": {
+    "representative_models": [
+      "deepseek-v4-flash",
+      "qwen3-8b-nothink"
+    ],
+    "design": "20 behaviors × 2 attacks × 2 scenarios × 5 defenses",
+    "records_per_model": 400,
+    "defenses": {
+      "D0_none": "no defense",
+      "D1_system_prompt": "safety system prompt",
+      "D2_perturbation": "three character-perturbed variants plus refusal/non-refusal majority aggregation",
+      "D3_rule_input": "fixed keyword input filter",
+      "D4_rule_output": "fixed keyword output filter"
+    },
+    "naming_boundary": "D3/D4 are rule baselines, not learned guard models"
+  },
+  "benign_utility": {
+    "design": "30 benign-sensitive prompts × matched five defenses",
+    "utility_scale": "1-5; over-refusal if utility <= 2"
+  },
+  "a6": {
+    "generator": "gemma3:4b",
+    "design": "50 literal-seed wrappers transferred to three targets under S1/D0",
+    "literal_seed_protocol": "generator template contains <<BEHAVIOR>> exactly once; program injects seed verbatim",
+    "valid_model_templates": 40,
+    "deterministic_fallback_templates": 10,
+    "matched_comparators": [
+      "A0_direct",
+      "A2_persona",
+      "A1_pair"
+    ]
+  },
+  "judges": {
+    "primary": {
+      "model_id": "gpt-oss:20b",
+      "backend": "Ollama",
+      "scale": "1-5"
+    },
+    "sensitivity": {
+      "model_id": "glm-5.2",
+      "backend": "external OpenAI-compatible API",
+      "sample_n": 100,
+      "sampling": "20 per model, score-blind, category/scenario balanced with fixed attack rotation"
+    }
+  },
+  "statistics": {
+    "bootstrap_unit": "harmful behavior",
+    "interaction_permutation": "complete scenario profiles permuted within behavior × attack clusters",
+    "phase3_paired_test": "behavior-level sign-flip with behavior bootstrap confidence intervals",
+    "multiple_comparisons": "Holm correction",
+    "a6": "behavior-paired bootstrap and exact McNemar with Holm correction"
+  },
+  "known_limitations": [
+    "Harmful-v2 labels were not independently human annotated.",
+    "Target-specific generation caps/backends limit unconditional cross-model causal ranking.",
+    "Gemma 256-vs-512 overlap sensitivity is reported, but does not remove every decoding-budget concern.",
+    "S4 is agent-lite prompt injection, not real tool execution.",
+    "PAIR was optimized on Qwen, so Qwen A1 is not an out-of-sample transfer estimate.",
+    "D3/D4 are deliberately simple keyword baselines and incur over-refusal.",
+    "Automated judges remain imperfect; primary and secondary absolute rates differ."
+  ],
+  "inputs": {
+    "harmful_v2": {
+      "path": "data/processed/harmful_behaviors_v2.jsonl",
+      "size_bytes": 30402,
+      "sha256": "0e81e1fc73f1d9c686bb50d8cb26cc7653ddcebeca7fffe363845ae9030f6e71",
+      "records": 50
+    },
+    "harmful_v2_provenance": {
+      "path": "data/processed/harmful_behaviors_v2.provenance.json",
+      "size_bytes": 691,
+      "sha256": "1f72084de32cf82fc8f7081eb8232e8bc04f85d4025f2ce68c56da89624b81d4",
+      "records": null
+    },
+    "pair_prompts": {
+      "path": "runs/pair_attacks_harmful_v2.jsonl",
+      "size_bytes": 417168,
+      "sha256": "e85b11f679314ea22476dd0303b391da396575ae39f5211c3d40ad5c52efabb1",
+      "records": 50
+    },
+    "pair_provenance": {
+      "path": "runs/pair_attacks_harmful_v2.provenance.json",
+      "size_bytes": 652,
+      "sha256": "ebaf842572abf3a5e010897f54f74d91b6834e92c1db07d90685f46febaf65b8",
+      "records": null
+    },
+    "a6_wrappers": {
+      "path": "data/processed/phase4_a6_harmful_v2_gemma3-4b_50seed.jsonl",
+      "size_bytes": 100478,
+      "sha256": "98ac49dec80be6ed3f5bebcb1b7f3e7381922cbd47983fbff71bb2197f20d434",
+      "records": 50
+    },
+    "a6_provenance": {
+      "path": "data/processed/phase4_a6_harmful_v2_gemma3-4b_50seed.provenance.json",
+      "size_bytes": 928,
+      "sha256": "f266fd3c2887ffd04f410922c488129bc2c067d0e3502c2e1711f3607b64a5a4",
+      "records": null
+    },
+    "benign_controls": {
+      "path": "data/processed/benign_prompts_30.jsonl",
+      "size_bytes": 6855,
+      "sha256": "811507e691859aaedbcaf2d5a566293843326dc6a2901dad13d7826b9678105c",
+      "records": 30
+    },
+    "matched_pair_inputs": {
+      "path": "data/processed/matched_v2_pair_50_inputs.jsonl",
+      "size_bytes": 93066,
+      "sha256": "ee3bb4c2aac0dbafe8dbfa8da17625f28399d3277e6fa8dff9a5f296826277a1",
+      "records": 50
+    }
+  },
+  "code": {
+    "phase2_runner": {
+      "path": "scripts/run_phase2_twostage.py",
+      "size_bytes": 16429,
+      "sha256": "f0742c17593c9baf96aa57f24778dcd5367bafdd536ca35f32f06517dffd7421",
+      "records": null
+    },
+    "phase3_runner": {
+      "path": "scripts/run_phase3.py",
+      "size_bytes": 17565,
+      "sha256": "5454c72100ddf121624e88a10a9282e7efd33d311e0b1b41f1e6322bc7bf6a5f",
+      "records": null
+    },
+    "inference_backend": {
+      "path": "scripts/run_inference.py",
+      "size_bytes": 34550,
+      "sha256": "7111e50ca1f2a1fcbc597076a00fdd0d8be98c22014b488429360a64cda9ccc0",
+      "records": null
+    },
+    "defenses": {
+      "path": "scripts/defenses.py",
+      "size_bytes": 11191,
+      "sha256": "5341a1b44668d51da38127a3dbc8ec46efdc8c4c97077526b38db549ecd0a46f",
+      "records": null
+    },
+    "secondary_judge": {
+      "path": "scripts/judge_external_glm52.py",
+      "size_bytes": 18679,
+      "sha256": "6d6ae20af2bcc97555455aa1911eeeccbb5de70f3dc30e382eb93998d2b5a7c0",
+      "records": null
+    },
+    "cluster_statistics": {
+      "path": "scripts/bootstrap_ci.py",
+      "size_bytes": 13904,
+      "sha256": "56f0f6aedde8e19312da1fb2c9a01a8ab8d84cd0545c15575ed15b1da132f0a6",
+      "records": null
+    },
+    "phase3_statistics": {
+      "path": "scripts/analyze_phase3_statistics.py",
+      "size_bytes": 5817,
+      "sha256": "dea3ab9a821828add73f566f4f20ca7a6de52792c117898066289c1567e8506c",
+      "records": null
+    },
+    "benign_statistics": {
+      "path": "scripts/analyze_benign_statistics.py",
+      "size_bytes": 3589,
+      "sha256": "d5de9c45fc7d0e4c8db5d46f9c668f473875e8a5bbf1ec4a69184b0a9545e0ec",
+      "records": null
+    },
+    "a6_statistics": {
+      "path": "scripts/analyze_a6_v2formal.py",
+      "size_bytes": 7482,
+      "sha256": "9ee3a99a2fe314fdf7c5c5efd4988a9750a4efa73bb6475feff33d7594806810",
+      "records": null
+    },
+    "descriptive_summaries": {
+      "path": "scripts/summarize_v2formal.py",
+      "size_bytes": 4378,
+      "sha256": "b0e239070f40958cba088d5f78d716f990343ab513596a21f2926bc1999d2a20",
+      "records": null
+    },
+    "primary_rejudge": {
+      "path": "scripts/rejudge_gptoss.py",
+      "size_bytes": 7340,
+      "sha256": "5486d7b8711f72212208f00af20b5cfa486f0aad0b95f025ebbff292af791809",
+      "records": null
+    },
+    "benign_utility_judge": {
+      "path": "scripts/rejudge_benign_gptoss.py",
+      "size_bytes": 6485,
+      "sha256": "da1f2192a11626e2a6b5aac3a3ba552cdc2925ae5ec6504ed0975d7ea518c8ba",
+      "records": null
+    },
+    "completion_audit": {
+      "path": "scripts/audit_v2formal.py",
+      "size_bytes": 9493,
+      "sha256": "0f8e32c75e9c7d332509cdb2238f930fced04f039fd0a53d566709c3d44d1333",
+      "records": null
+    },
+    "manifest_generator": {
+      "path": "scripts/generate_manifest.py",
+      "size_bytes": 9789,
+      "sha256": "ff18e70c5d98e7ac07cd8eef8b03aa2c72bd51526ca040f0a766556fc47707a6",
+      "records": null
+    }
+  },
+  "formal_result_files": {
+    "phase2_deepseek-v4-flash": {
+      "path": "runs/phase2_v2formal_deepseek-v4-flash.jsonl",
+      "size_bytes": 526686,
+      "sha256": "2c748483c8671293a2ebbc8315101bf8b12566d4b3f8dbbbaf9e9fdd6bf72bf3",
+      "records": 240
+    },
+    "phase2_llama3.1-8b": {
+      "path": "runs/phase2_v2formal_llama3.1-8b.jsonl",
+      "size_bytes": 314748,
+      "sha256": "89d1729e191205e18c5ead194da37debb8aeb41979c346ea021fbe409d3f1ce8",
+      "records": 240
+    },
+    "phase2_qwen3-8b-nothink": {
+      "path": "runs/phase2_v2formal_qwen3-8b-nothink.jsonl",
+      "size_bytes": 466547,
+      "sha256": "66efc05cd189c9781b3c1ab43873413befa0fa68d74eb17bedff512a16216596",
+      "records": 240
+    },
+    "phase2_gemma4-12b-it": {
+      "path": "runs/phase2_v2formal_gemma4-12b-it.jsonl",
+      "size_bytes": 292279,
+      "sha256": "e39b4738859d829f1fe0170e773a899482411f7f073e8cdee94b68bec2c63fbb",
+      "records": 240
+    },
+    "phase2_gemma4-12b-obliterated": {
+      "path": "runs/phase2_v2formal_gemma4-12b-obliterated.jsonl",
+      "size_bytes": 508692,
+      "sha256": "d00ad54209e1f5850b35f8ad07b71fd58da3c22355ef10801cce1e41fe9b5039",
+      "records": 240
+    },
+    "phase3_deepseek-v4-flash": {
+      "path": "runs/phase3_v2formal_deepseek-v4-flash.jsonl",
+      "size_bytes": 1295348,
+      "sha256": "a30f4f14ed50272b811ecec886fdff4fcae87e3ce4e0dcfa09042848eca80b7c",
+      "records": 400
+    },
+    "benign_deepseek-v4-flash": {
+      "path": "runs/benign_v2formal_deepseek-v4-flash_responses.gptoss_utility.jsonl",
+      "size_bytes": 749011,
+      "sha256": "377033a9bcc192a539d48fc6d9ccdd5a96da7ba9dd01da3581096d9185ffe2c6",
+      "records": 150
+    },
+    "phase3_qwen3-8b-nothink": {
+      "path": "runs/phase3_v2formal_qwen3-8b-nothink.jsonl",
+      "size_bytes": 1632481,
+      "sha256": "ac4ec0d55a5e21662e1c9f59b7dce174aa49c445ab6a5a7537bf64995161af4b",
+      "records": 400
+    },
+    "benign_qwen3-8b-nothink": {
+      "path": "runs/benign_v2formal_qwen3-8b-nothink_responses.gptoss_utility.jsonl",
+      "size_bytes": 987336,
+      "sha256": "b762eaa6bfb019b338afba1bea52911cd048713c3794834d26ce9fbe72d21ba8",
+      "records": 150
+    },
+    "a6_deepseek-v4-flash": {
+      "path": "runs/phase4_a6_v2formal_deepseek-v4-flash_responses.gptoss.jsonl",
+      "size_bytes": 181510,
+      "sha256": "762d98d62f9c84ebc8035da9ba7f1b0c8bf5a74c9f6de97e3c0139fdeea33bec",
+      "records": 50
+    },
+    "a6_baselines_deepseek-v4-flash": {
+      "path": "runs/matched_v2_deepseek-v4-flash_a0_a2_responses.gptoss.jsonl",
+      "size_bytes": 234266,
+      "sha256": "8d374ed6025af09ad1266a547562d9778b4d7579d750f943a1ba693a27e3d5f8",
+      "records": 100
+    },
+    "a6_pair_deepseek-v4-flash": {
+      "path": "runs/matched_v2_deepseek-v4-flash_pair_responses.gptoss.jsonl",
+      "size_bytes": 320920,
+      "sha256": "6cb3e26f2c2cc265ff03aa19621d71bb3c268388fcdb568f90471107e6e76897",
+      "records": 50
+    },
+    "a6_llama3.1-8b": {
+      "path": "runs/phase4_a6_v2formal_llama3.1-8b_responses.gptoss.jsonl",
+      "size_bytes": 111584,
+      "sha256": "7dde9da4c804dc9d7354aef4c02390dd3e3f0b876a20b018bf17b89afd0c7cc7",
+      "records": 50
+    },
+    "a6_baselines_llama3.1-8b": {
+      "path": "runs/matched_v2_llama3.1-8b_a0_a2_responses.gptoss.jsonl",
+      "size_bytes": 168297,
+      "sha256": "1cf8c2e132e6486e8d099fab33cb60b547b203d7aab6d66bf54bee872b940239",
+      "records": 100
+    },
+    "a6_pair_llama3.1-8b": {
+      "path": "runs/matched_v2_llama3.1-8b_pair_responses.gptoss.jsonl",
+      "size_bytes": 257312,
+      "sha256": "6f4da0c34c4c92036f8d94efde5e7169223aad3d5b05dcaf46b6f511989f7577",
+      "records": 50
+    },
+    "a6_qwen3-8b-nothink": {
+      "path": "runs/phase4_a6_v2formal_qwen3-8b-nothink_responses.gptoss.jsonl",
+      "size_bytes": 202509,
+      "sha256": "0deffed7adf2dc26cbdc5827ce113c4b242ec552b95a958fd83dc570a834e271",
+      "records": 50
+    },
+    "a6_baselines_qwen3-8b-nothink": {
+      "path": "runs/matched_v2_qwen3-8b-nothink_a0_a2_responses.gptoss.jsonl",
+      "size_bytes": 223712,
+      "sha256": "df0559cf63030e837f93ae58267e982a4b4113a0ebe20b9a446517c26fd68146",
+      "records": 100
+    },
+    "a6_pair_qwen3-8b-nothink": {
+      "path": "runs/matched_v2_qwen3-8b-nothink_pair_responses.gptoss.jsonl",
+      "size_bytes": 397657,
+      "sha256": "4ee272254a2fa1aed6829889a1d9706dd762620e1ed54368da5c821053101fb2",
+      "records": 50
+    },
+    "judge_sensitivity": {
+      "path": "runs/judge_sensitivity_v2formal_glm52.jsonl",
+      "size_bytes": 226075,
+      "sha256": "9855deeb1efdfb7674fdba0a2618cfceb340c2b677e5c3a849de2be04cada3c2",
+      "records": 100
+    },
+    "phase2_summary_model": {
+      "path": "results/v2formal_20260715/phase2_by_model.csv",
+      "size_bytes": 665,
+      "sha256": "90362be40dfaa28b81b8b0e9cc397e6f999cc9cac250c786e4836173cb655c0e",
+      "records": 6
+    },
+    "phase2_summary_attack": {
+      "path": "results/v2formal_20260715/phase2_by_model_attack.csv",
+      "size_bytes": 1314,
+      "sha256": "c8f2d7ba1556feb98af6f9e731c1af6ea818c698b7f26b6d2aee7df9850cb985",
+      "records": 16
+    },
+    "phase2_summary_scenario": {
+      "path": "results/v2formal_20260715/phase2_by_model_scenario.csv",
+      "size_bytes": 2375,
+      "sha256": "b07c527b20f0d6ada30703496b742b39c2fa98b803e1cf5c10996b4945fc2f7c",
+      "records": 21
+    },
+    "phase3_summary": {
+      "path": "results/v2formal_20260715/phase3_by_model_defense.csv",
+      "size_bytes": 1064,
+      "sha256": "a8b1bb65d6dbf1df11832b2c7afb7ca5d4371933a4a5d93969330973c8a4582b",
+      "records": 11
+    },
+    "phase3_paired_statistics": {
+      "path": "results/v2formal_20260715/phase3_clustered_paired.csv",
+      "size_bytes": 2711,
+      "sha256": "f18fd6a92f790c9fa713fe1bc447d71e1ab05aca87684a47c26b89bf159c78d9",
+      "records": 25
+    },
+    "benign_summary": {
+      "path": "results/v2formal_20260715/benign_by_model_defense.csv",
+      "size_bytes": 721,
+      "sha256": "7edef4565def83d5b10006c59ce3c0baccf348d4ffd62ab173d32127f1731202",
+      "records": 11
+    },
+    "benign_deepseek_statistics": {
+      "path": "results/v2formal_20260715/benign_deepseek_paired.csv",
+      "size_bytes": 736,
+      "sha256": "aacfd4ea0c07cd3b0c006b7f3e1c0c218d9a2bafaf5767097082c391e38bba2b",
+      "records": 5
+    },
+    "benign_qwen_statistics": {
+      "path": "results/v2formal_20260715/benign_qwen_paired.csv",
+      "size_bytes": 733,
+      "sha256": "3e3400cf43a70b15d67bca7ef31473d1b372993cb99ad37e56c968515418e976",
+      "records": 5
+    },
+    "a6_summary": {
+      "path": "results/v2formal_20260715/summary_by_model_attack.csv",
+      "size_bytes": 592,
+      "sha256": "b47f2f14a8931ac94c4926cb89ac57639f7449cb8fb123596272b4beb2c06e0e",
+      "records": 13
+    },
+    "a6_paired_statistics": {
+      "path": "results/v2formal_20260715/paired_vs_a6.csv",
+      "size_bytes": 1593,
+      "sha256": "cb1551741ccca0164ceaf705b0a96b2eb4ba6a50d4dcf715808bb38e3af2a313",
+      "records": 10
+    },
+    "a6_strategy_summary": {
+      "path": "results/v2formal_20260715/a6_by_generator_strategy.csv",
+      "size_bytes": 412,
+      "sha256": "9ef1dfee72bf3baad2ffb7bec231db34d627e5ed5c9f28a3111b97b21c46e1ae",
+      "records": 7
+    },
+    "judge_sensitivity_primary_summary": {
+      "path": "results/v2formal_20260715/judge_sensitivity_primary_by_model.csv",
+      "size_bytes": 400,
+      "sha256": "82af53275c2fbdebdef38288fdc8d1e459372b95fe351021c99621e64040be50",
+      "records": 6
+    },
+    "judge_sensitivity_glm_summary": {
+      "path": "results/v2formal_20260715/judge_sensitivity_glm_by_model.csv",
+      "size_bytes": 442,
+      "sha256": "fa8414755ecba099fe838658b4651a04aaa2fc7a1b4929350116a066217aa1bf",
+      "records": 6
+    },
+    "phase2_clustered_interaction": {
+      "path": "results/v2formal_20260715/phase2_clustered_bootstrap_interaction.json",
+      "size_bytes": 14657,
+      "sha256": "2c93eb0b4e2a1f9400b319fddaa800bf55ddc0bfaf1a3d67d1cd42d34db720c2",
+      "records": null
+    },
+    "phase3_paired_statistics_json": {
+      "path": "results/v2formal_20260715/phase3_clustered_paired.json",
+      "size_bytes": 7559,
+      "sha256": "9645d3948178d4a6b9300d4330e76eca9589b0808c9ea049acfe77e3be7f4c98",
+      "records": null
+    },
+    "a6_statistics_json": {
+      "path": "results/v2formal_20260715/results.json",
+      "size_bytes": 9229,
+      "sha256": "48a23d449bac37fc5a164e260a161d5191377fff1487a404984ddecfa02ce333",
+      "records": null
+    },
+    "results_discussion_draft": {
+      "path": "docs/results_chapter_draft_zh.md",
+      "size_bytes": 17145,
+      "sha256": "2316c879823c7adc6f4691d45f77be1438783b03839c818097b86ca15a91dc1b",
+      "records": null
+    }
+  },
+  "excluded": [
+    "legacy seed_prompts results",
+    "diagnostic partials and smoke runs",
+    "pre-literal-fix A6 wrappers",
+    "pre-channel-fix Gemma outputs",
+    "old phi4-mini main-result scores"
+  ]
+}

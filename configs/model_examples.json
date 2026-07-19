@@ -1,0 +1,19 @@
+{
+  "mock": {
+    "backend": "mock",
+    "model": "mock-safe-model"
+  },
+  "ollama": {
+    "backend": "ollama",
+    "model": "llama3.2:3b",
+    "api_base": "http://localhost:11434",
+    "think": "auto"
+  },
+  "openai_compatible": {
+    "backend": "openai",
+    "model": "your-model-id",
+    "api_base": "https://your-provider.example/v1",
+    "api_key_env": "MODEL_API_KEY"
+  }
+}
+

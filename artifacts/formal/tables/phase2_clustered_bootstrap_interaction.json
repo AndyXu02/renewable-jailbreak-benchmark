@@ -1,0 +1,558 @@
+{
+  "phase2": {
+    "deepseek-v4-flash": {
+      "Mean": {
+        "observed": 1.5583333333333333,
+        "ci_low": 1.3958333333333333,
+        "ci_high": 1.7333333333333334,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "Risk@3": {
+        "observed": 12.916666666666668,
+        "ci_low": 8.75,
+        "ci_high": 17.083333333333332,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "HCR@4": {
+        "observed": 12.083333333333334,
+        "ci_low": 7.916666666666666,
+        "ci_high": 16.666666666666664,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "S1_direct_Mean": {
+        "observed": 2.0166666666666666,
+        "ci_low": 1.7666666666666666,
+        "ci_high": 2.2333333333333334,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_Risk@3": {
+        "observed": 26.666666666666668,
+        "ci_low": 20.0,
+        "ci_high": 31.666666666666664,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_HCR@4": {
+        "observed": 25.0,
+        "ci_low": 18.333333333333332,
+        "ci_high": 30.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Mean": {
+        "observed": 1.5666666666666667,
+        "ci_low": 1.35,
+        "ci_high": 1.8,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Risk@3": {
+        "observed": 11.666666666666666,
+        "ci_low": 5.0,
+        "ci_high": 18.333333333333332,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_HCR@4": {
+        "observed": 10.0,
+        "ci_low": 3.3333333333333335,
+        "ci_high": 16.666666666666664,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Mean": {
+        "observed": 1.4,
+        "ci_low": 1.1666666666666667,
+        "ci_high": 1.65,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Risk@3": {
+        "observed": 8.333333333333332,
+        "ci_low": 3.3333333333333335,
+        "ci_high": 15.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_HCR@4": {
+        "observed": 8.333333333333332,
+        "ci_low": 3.3333333333333335,
+        "ci_high": 15.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Mean": {
+        "observed": 1.25,
+        "ci_low": 1.0666666666666667,
+        "ci_high": 1.4666666666666666,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Risk@3": {
+        "observed": 5.0,
+        "ci_low": 0.0,
+        "ci_high": 10.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_HCR@4": {
+        "observed": 5.0,
+        "ci_low": 0.0,
+        "ci_high": 10.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      }
+    },
+    "qwen3-8b-nothink": {
+      "Mean": {
+        "observed": 2.1875,
+        "ci_low": 1.9541666666666666,
+        "ci_high": 2.425,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "Risk@3": {
+        "observed": 30.0,
+        "ci_low": 24.166666666666668,
+        "ci_high": 35.833333333333336,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "HCR@4": {
+        "observed": 29.583333333333332,
+        "ci_low": 23.333333333333332,
+        "ci_high": 35.833333333333336,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "S1_direct_Mean": {
+        "observed": 2.466666666666667,
+        "ci_low": 2.2,
+        "ci_high": 2.816666666666667,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_Risk@3": {
+        "observed": 36.666666666666664,
+        "ci_low": 30.0,
+        "ci_high": 45.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_HCR@4": {
+        "observed": 36.666666666666664,
+        "ci_low": 30.0,
+        "ci_high": 45.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Mean": {
+        "observed": 1.9166666666666667,
+        "ci_low": 1.5333333333333334,
+        "ci_high": 2.283333333333333,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Risk@3": {
+        "observed": 23.333333333333332,
+        "ci_low": 13.333333333333334,
+        "ci_high": 33.33333333333333,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_HCR@4": {
+        "observed": 23.333333333333332,
+        "ci_low": 13.333333333333334,
+        "ci_high": 33.33333333333333,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Mean": {
+        "observed": 2.2,
+        "ci_low": 1.9333333333333333,
+        "ci_high": 2.466666666666667,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Risk@3": {
+        "observed": 30.0,
+        "ci_low": 23.333333333333332,
+        "ci_high": 36.666666666666664,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_HCR@4": {
+        "observed": 30.0,
+        "ci_low": 23.333333333333332,
+        "ci_high": 36.666666666666664,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Mean": {
+        "observed": 2.1666666666666665,
+        "ci_low": 1.8,
+        "ci_high": 2.533333333333333,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Risk@3": {
+        "observed": 30.0,
+        "ci_low": 21.666666666666668,
+        "ci_high": 38.333333333333336,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_HCR@4": {
+        "observed": 28.333333333333332,
+        "ci_low": 18.333333333333332,
+        "ci_high": 38.333333333333336,
+        "n_behaviors": 20,
+        "n_records": 60
+      }
+    },
+    "llama3.1-8b": {
+      "Mean": {
+        "observed": 1.6291666666666667,
+        "ci_low": 1.4541666666666666,
+        "ci_high": 1.8041666666666667,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "Risk@3": {
+        "observed": 15.833333333333332,
+        "ci_low": 11.25,
+        "ci_high": 20.416666666666668,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "HCR@4": {
+        "observed": 15.833333333333332,
+        "ci_low": 11.25,
+        "ci_high": 20.416666666666668,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "S1_direct_Mean": {
+        "observed": 1.3333333333333333,
+        "ci_low": 1.1333333333333333,
+        "ci_high": 1.6,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_Risk@3": {
+        "observed": 8.333333333333332,
+        "ci_low": 3.3333333333333335,
+        "ci_high": 15.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_HCR@4": {
+        "observed": 8.333333333333332,
+        "ci_low": 3.3333333333333335,
+        "ci_high": 15.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Mean": {
+        "observed": 1.65,
+        "ci_low": 1.3666666666666667,
+        "ci_high": 1.9333333333333333,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Risk@3": {
+        "observed": 16.666666666666664,
+        "ci_low": 10.0,
+        "ci_high": 23.333333333333332,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_HCR@4": {
+        "observed": 16.666666666666664,
+        "ci_low": 10.0,
+        "ci_high": 23.333333333333332,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Mean": {
+        "observed": 1.8,
+        "ci_low": 1.5333333333333334,
+        "ci_high": 2.066666666666667,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Risk@3": {
+        "observed": 20.0,
+        "ci_low": 13.333333333333334,
+        "ci_high": 26.666666666666668,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_HCR@4": {
+        "observed": 20.0,
+        "ci_low": 13.333333333333334,
+        "ci_high": 26.666666666666668,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Mean": {
+        "observed": 1.7333333333333334,
+        "ci_low": 1.4666666666666666,
+        "ci_high": 2.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Risk@3": {
+        "observed": 18.333333333333332,
+        "ci_low": 11.666666666666666,
+        "ci_high": 25.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_HCR@4": {
+        "observed": 18.333333333333332,
+        "ci_low": 11.666666666666666,
+        "ci_high": 25.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      }
+    },
+    "gemma4-12b-it": {
+      "Mean": {
+        "observed": 1.1791666666666667,
+        "ci_low": 1.0791666666666666,
+        "ci_high": 1.3041666666666667,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "Risk@3": {
+        "observed": 2.9166666666666665,
+        "ci_low": 0.4166666666666667,
+        "ci_high": 6.25,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "HCR@4": {
+        "observed": 2.5,
+        "ci_low": 0.0,
+        "ci_high": 5.833333333333333,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "S1_direct_Mean": {
+        "observed": 1.2166666666666666,
+        "ci_low": 1.0666666666666667,
+        "ci_high": 1.4166666666666667,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_Risk@3": {
+        "observed": 3.3333333333333335,
+        "ci_low": 0.0,
+        "ci_high": 8.333333333333332,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_HCR@4": {
+        "observed": 3.3333333333333335,
+        "ci_low": 0.0,
+        "ci_high": 8.333333333333332,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Mean": {
+        "observed": 1.2833333333333334,
+        "ci_low": 1.1333333333333333,
+        "ci_high": 1.45,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Risk@3": {
+        "observed": 5.0,
+        "ci_low": 0.0,
+        "ci_high": 10.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_HCR@4": {
+        "observed": 3.3333333333333335,
+        "ci_low": 0.0,
+        "ci_high": 8.333333333333332,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Mean": {
+        "observed": 1.1333333333333333,
+        "ci_low": 1.0333333333333334,
+        "ci_high": 1.2833333333333334,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Risk@3": {
+        "observed": 1.6666666666666667,
+        "ci_low": 0.0,
+        "ci_high": 5.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_HCR@4": {
+        "observed": 1.6666666666666667,
+        "ci_low": 0.0,
+        "ci_high": 5.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Mean": {
+        "observed": 1.0833333333333333,
+        "ci_low": 1.0,
+        "ci_high": 1.2333333333333334,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Risk@3": {
+        "observed": 1.6666666666666667,
+        "ci_low": 0.0,
+        "ci_high": 5.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_HCR@4": {
+        "observed": 1.6666666666666667,
+        "ci_low": 0.0,
+        "ci_high": 5.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      }
+    },
+    "gemma4-12b-obliterated": {
+      "Mean": {
+        "observed": 4.25,
+        "ci_low": 4.033333333333333,
+        "ci_high": 4.4625,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "Risk@3": {
+        "observed": 85.0,
+        "ci_low": 79.58333333333333,
+        "ci_high": 90.0,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "HCR@4": {
+        "observed": 77.91666666666667,
+        "ci_low": 70.41666666666667,
+        "ci_high": 85.0,
+        "n_behaviors": 20,
+        "n_records": 240
+      },
+      "S1_direct_Mean": {
+        "observed": 4.233333333333333,
+        "ci_low": 3.9166666666666665,
+        "ci_high": 4.533333333333333,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_Risk@3": {
+        "observed": 81.66666666666667,
+        "ci_low": 71.66666666666667,
+        "ci_high": 91.66666666666666,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S1_direct_HCR@4": {
+        "observed": 80.0,
+        "ci_low": 70.0,
+        "ci_high": 90.0,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Mean": {
+        "observed": 4.35,
+        "ci_low": 4.033333333333333,
+        "ci_high": 4.65,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_Risk@3": {
+        "observed": 90.0,
+        "ci_low": 83.33333333333334,
+        "ci_high": 96.66666666666667,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S2_multiturn_HCR@4": {
+        "observed": 81.66666666666667,
+        "ci_low": 70.0,
+        "ci_high": 91.66666666666666,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Mean": {
+        "observed": 4.366666666666666,
+        "ci_low": 4.05,
+        "ci_high": 4.666666666666667,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_Risk@3": {
+        "observed": 90.0,
+        "ci_low": 83.33333333333334,
+        "ci_high": 96.66666666666667,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S3_longcontext_HCR@4": {
+        "observed": 76.66666666666667,
+        "ci_low": 63.33333333333333,
+        "ci_high": 88.33333333333333,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Mean": {
+        "observed": 4.05,
+        "ci_low": 3.7333333333333334,
+        "ci_high": 4.366666666666666,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_Risk@3": {
+        "observed": 78.33333333333333,
+        "ci_low": 68.33333333333333,
+        "ci_high": 88.33333333333333,
+        "n_behaviors": 20,
+        "n_records": 60
+      },
+      "S4_agent_HCR@4": {
+        "observed": 73.33333333333333,
+        "ci_low": 65.0,
+        "ci_high": 81.66666666666667,
+        "n_behaviors": 20,
+        "n_records": 60
+      }
+    }
+  },
+  "interaction_test": {
+    "observed_ss": 1041839.1549999998,
+    "p_value": 0.013159868401315987,
+    "n_perm": 100000,
+    "models": [
+      "deepseek-v4-flash",
+      "gemma4-12b-it",
+      "gemma4-12b-obliterated",
+      "llama3.1-8b",
+      "qwen3-8b-nothink"
+    ],
+    "scenarios": [
+      "S1_direct",
+      "S2_multiturn",
+      "S3_longcontext",
+      "S4_agent"
+    ],
+    "n_records": 1200
+  }
+}

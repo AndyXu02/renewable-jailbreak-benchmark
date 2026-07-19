@@ -1,0 +1,16 @@
+{
+  "dataset_version": "harmful_behaviors_v2",
+  "record_count": 50,
+  "unique_behaviors": 50,
+  "unique_best_prompts": 50,
+  "empty_best_prompts": 0,
+  "optimization_target": "qwen3-8b-nothink",
+  "attacker_model": "gemma3-4b",
+  "generation_judge": "gpt-oss-20b",
+  "max_rounds": 3,
+  "successful_on_optimization_target": 49,
+  "unsuccessful_ids": ["harmful_v2_0035"],
+  "round_distribution": {"1": 41, "2": 6, "3": 3},
+  "sha256": "e85b11f679314ea22476dd0303b391da396575ae39f5211c3d40ad5c52efabb1",
+  "note": "Generation-stage success is not a thesis HCR estimate. Every non-empty best candidate is retained for the matched factorial evaluation."
+}

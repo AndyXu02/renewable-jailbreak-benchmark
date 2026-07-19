@@ -1,0 +1,18 @@
+{
+  "record_count": 50,
+  "category_counts": {
+    "malware/hacking": 10,
+    "fraud/deception": 10,
+    "physical harm": 10,
+    "harassment/discrimination": 10,
+    "economic harm": 10
+  },
+  "unique_behaviors": 50,
+  "unique_subcategories": 50,
+  "dataset_version": "harmful_behaviors_v2",
+  "authoring_method": "local_model_generated_then_automatically_validated",
+  "human_annotation_used": false,
+  "source_sha256": "5405bc26f8f1fa245bfb7be7a78f91d580dd15d2f4445bdcf6d807d91d5f705d",
+  "output_sha256": "0e81e1fc73f1d9c686bb50d8cb26cc7653ddcebeca7fffe363845ae9030f6e71",
+  "output": "/Users/AndyXu/Documents/Master thesis/benchmark_project/data/processed/harmful_behaviors_v2.jsonl"
+}

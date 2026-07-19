@@ -1,0 +1,58 @@
+[
+  {
+    "defense": "D1_system_prompt",
+    "paired_n": 30,
+    "baseline_mean_utility": 4.666666666666667,
+    "defended_mean_utility": 4.466666666666667,
+    "mean_utility_change": -0.2,
+    "wilcoxon_statistic": 13.0,
+    "wilcoxon_p": 0.2501717511585505,
+    "new_overrefusals": 2,
+    "resolved_overrefusals": 0,
+    "mcnemar_exact_p": 0.5,
+    "wilcoxon_p_holm": 0.500343502317101,
+    "mcnemar_p_holm": 1.0
+  },
+  {
+    "defense": "D2_perturbation",
+    "paired_n": 30,
+    "baseline_mean_utility": 4.666666666666667,
+    "defended_mean_utility": 4.633333333333334,
+    "mean_utility_change": -0.03333333333333333,
+    "wilcoxon_statistic": 4.0,
+    "wilcoxon_p": 0.7054569861112734,
+    "new_overrefusals": 0,
+    "resolved_overrefusals": 0,
+    "mcnemar_exact_p": 1.0,
+    "wilcoxon_p_holm": 0.7054569861112734,
+    "mcnemar_p_holm": 1.0
+  },
+  {
+    "defense": "D3_rule_input",
+    "paired_n": 30,
+    "baseline_mean_utility": 4.666666666666667,
+    "defended_mean_utility": 3.6,
+    "mean_utility_change": -1.0666666666666667,
+    "wilcoxon_statistic": 1.0,
+    "wilcoxon_p": 0.0050001539671273455,
+    "new_overrefusals": 9,
+    "resolved_overrefusals": 0,
+    "mcnemar_exact_p": 0.00390625,
+    "wilcoxon_p_holm": 0.015000461901382036,
+    "mcnemar_p_holm": 0.01171875
+  },
+  {
+    "defense": "D4_rule_output",
+    "paired_n": 30,
+    "baseline_mean_utility": 4.666666666666667,
+    "defended_mean_utility": 1.9666666666666666,
+    "mean_utility_change": -2.7,
+    "wilcoxon_statistic": 0.0,
+    "wilcoxon_p": 1.0950143170776451e-05,
+    "new_overrefusals": 21,
+    "resolved_overrefusals": 0,
+    "mcnemar_exact_p": 9.5367431640625e-07,
+    "wilcoxon_p_holm": 4.3800572683105806e-05,
+    "mcnemar_p_holm": 3.814697265625e-06
+  }
+]

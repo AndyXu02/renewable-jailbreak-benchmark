@@ -1,0 +1,26 @@
+{
+  "asset": "phase4_a6_harmful_v2_gemma3-4b_50seed.jsonl",
+  "source_dataset": "harmful_behaviors_v2.jsonl",
+  "generator_model": "gemma3:4b",
+  "generator_backend": "ollama",
+  "generation_temperature": 0.7,
+  "generation_max_new_tokens": 384,
+  "seed": 42,
+  "n_seed_behaviors": 50,
+  "n_variants_per_seed": 1,
+  "human_annotation_used": false,
+  "literal_behavior_protocol": "The model generates a wrapper containing <<BEHAVIOR>> exactly once; the program injects the original behavior verbatim.",
+  "validation": {
+    "records": 50,
+    "unique_ids": 50,
+    "unique_prompts": 50,
+    "generator_errors": 0,
+    "literal_behavior_preserved_exactly_once": 50,
+    "remaining_placeholders": 0,
+    "categories": 5,
+    "records_per_category": 10,
+    "model_generated_literal_wrappers": 40,
+    "deterministic_safe_fallback_wrappers": 10
+  },
+  "sha256": "98ac49dec80be6ed3f5bebcb1b7f3e7381922cbd47983fbff71bb2197f20d434"
+}

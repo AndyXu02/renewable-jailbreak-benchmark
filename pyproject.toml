@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rjbench"
+version = "0.1.0"
+description = "Portable runner for renewable and scenario-aware jailbreak benchmarking"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Andy Xu"}]
+keywords = ["llm-safety", "jailbreak", "red-teaming", "benchmark", "reproducibility"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+dependencies = []
+
+[project.optional-dependencies]
+analysis = ["numpy>=1.26", "scipy>=1.11"]
+huggingface = ["torch>=2.2", "transformers>=5.12", "datasets>=2.18"]
+mlx = ["mlx-lm>=0.31; sys_platform == 'darwin' and platform_machine == 'arm64'"]
+dev = ["ruff>=0.5"]
+
+[project.scripts]
+rjbench-run = "rjbench.run_cli:main"
+rjbench-judge = "rjbench.judge_cli:main"
+rjbench-summarize = "rjbench.summarize_cli:main"
+rjbench-verify = "rjbench.verify_cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+

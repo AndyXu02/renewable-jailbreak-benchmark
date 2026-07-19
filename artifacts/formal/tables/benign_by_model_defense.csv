@@ -1,0 +1,11 @@
+model,defense,n,mean_score,over_refusal_rate
+deepseek-v4-flash,D0_none,30,4.266666666666667,0.06666666666666667
+deepseek-v4-flash,D1_system_prompt,30,4.733333333333333,0.06666666666666667
+deepseek-v4-flash,D2_perturbation,30,4.5,0.03333333333333333
+deepseek-v4-flash,D3_rule_input,30,3.2666666666666666,0.3333333333333333
+deepseek-v4-flash,D4_rule_output,30,1.5,0.8333333333333334
+qwen3-8b-nothink,D0_none,30,4.666666666666667,0.03333333333333333
+qwen3-8b-nothink,D1_system_prompt,30,4.466666666666667,0.1
+qwen3-8b-nothink,D2_perturbation,30,4.633333333333334,0.03333333333333333
+qwen3-8b-nothink,D3_rule_input,30,3.6,0.3333333333333333
+qwen3-8b-nothink,D4_rule_output,30,1.9666666666666666,0.7333333333333333
