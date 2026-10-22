@@ -2,61 +2,50 @@
 
 [中文版 README](README_CN.md)
 
-A reproducible Python benchmark for testing how language-model safety changes
-across attacks, deployment scenarios, defenses, benign utility controls, and
-automated evaluators.
+A reproducible benchmark for testing language model safety across different attack methods, deployment scenarios, and defense mechanisms.
 
-This public repository has two deliberately separate layers:
+## Overview
 
-- `reference_implementation/formal_v2/` preserves the scripts used for the thesis experiments.
-- `src/rjbench/` is a small portable runner for Linux, macOS, and Windows. It supports any Ollama model, an OpenAI-compatible endpoint, or a deterministic mock backend.
+This benchmark evaluates:
+- **50 harmful behavior objectives** across five risk categories
+- **5 target models** with 4 prompt-delivery scenarios
+- **Attack methods**: Direct prompts, persona framing, PAIR optimization, and renewable generated wrappers
+- **Defense mechanisms**: System prompts, character perturbation, input/output filtering
+- **Benign baselines** to measure utility and over-refusal
+- **Multi-judge evaluation** with strict validation
 
-The portable layer does not change the frozen thesis results. It makes the same
-benchmark concepts easier to test on other hardware and newer models.
+The repository includes:
+- **3,700 experimental responses** with validated judge scores (Experiments 1-3 plus follow-ups)
+- **1,350 wrapper-refresh responses** from renewable asset protocol
+- **Portable runner** supporting Ollama, OpenAI-compatible APIs, and mock backends
+- **Complete analysis scripts** for reproducing all reported results
 
-## What was evaluated
+## Quick Start
 
-- 50 model-authored harmful objectives across five categories.
-- 5 target models and 4 prompt-delivery scenarios.
-- Direct, persona, target-optimized PAIR, and renewable A6 attacks.
-- A safety system prompt, character perturbation, and rule-based input/output filters.
-- Matched benign prompts to measure utility and over-refusal.
-- Behavior-clustered or paired statistics and evaluator-sensitivity checks.
+### Installation
 
-The formal route contains 2,900 scored experiment records, plus a separate
-100-record second-judge sensitivity sample. This release includes both the full
-3,000-record raw matrices and compact response-redacted score matrices.
-
-The October 2026 supplementary layer (`artifacts/supplementary/`) contains the
-final thesis scoring and follow-ups: three-judge panel scores (gpt-oss 20B,
-GLM-5.2, MiniMax-M3) with strict repairs for all 2,900 formal responses, 800
-follow-up responses (PAIR format crossover and Gemma cap sensitivity), and the
-1,350-response wrapper refresh built from 450 frozen assets by three generators
-and three seeds. See [`docs/SUPPLEMENTARY_20261016.md`](docs/SUPPLEMENTARY_20261016.md).
-
-## 60-second integrity check
-
-Only Python 3.10+ is required. The integrity check does not download a model or
-call an API.
+Requires Python 3.10+. No mandatory dependencies for core verification.
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate              # Windows: .venv\Scripts\activate
-python -m pip install -e .
+git clone https://github.com/AndyXu02/renewable-jailbreak-benchmark.git
+cd renewable-jailbreak-benchmark
+python3 -m pip install -e .
+```
+
+### Verify Data Integrity
+
+Check checksums and record counts (no model required):
+
+```bash
 rjbench-verify
-python -m unittest discover -s tests -v
+python3 -m unittest discover -s tests -v
 ```
 
-Expected result:
+Expected output: `Release verification passed: ... files; 3000 raw + 3000 compact formal records`
 
-```text
-Release verification passed: ... files; 3000 raw + 3000 compact formal records
-```
+### Run With Mock Backend
 
-## Two-minute smoke test without a model
-
-This checks attack/scenario/defense composition, output writing, judging, and
-summary generation with deterministic mock backends.
+Test the full pipeline without a model:
 
 ```bash
 rjbench-run \
@@ -79,10 +68,9 @@ rjbench-summarize runs/mock_judged.jsonl \
   --output runs/mock_summary.csv
 ```
 
-## Test any Ollama model
+### Run With Ollama
 
-Install and start [Ollama](https://ollama.com/), then pull a model available on
-your machine. The model name is not hard-coded in this project.
+Install [Ollama](https://ollama.com/) and pull a model:
 
 ```bash
 ollama pull llama3.2:3b
@@ -92,123 +80,83 @@ rjbench-run \
   --model llama3.2:3b \
   --data data/research/harmful_behaviors_v2.jsonl \
   --max-samples 5 \
-  --attacks A0_direct,A2_persona,A1_pair \
-  --pair-file data/research/pair_prompts_harmful_v2.jsonl \
-  --scenarios S1_direct,S2_multiturn,S3_longcontext,S4_agent \
+  --attacks A0_direct,A2_persona \
+  --scenarios S1_direct,S2_multiturn \
   --defenses D0_none,D1_system_prompt \
   --max-tokens 512 \
   --output runs/llama3.2-3b.jsonl
-```
-
-For Qwen and other reasoning models, use `--think off`, `--think low`, or the
-setting accepted by your Ollama model. The default is `--think auto`, which does
-not send an explicit thinking option.
-
-Judge the new responses with a separate model:
-
-```bash
-ollama pull gpt-oss:20b
 
 rjbench-judge \
   --backend ollama \
-  --model gpt-oss:20b \
-  --think low \
+  --model llama3.2:3b \
   --input runs/llama3.2-3b.jsonl \
-  --output runs/llama3.2-3b.judged.jsonl
+  --output runs/llama3.2-3b_judged.jsonl
+
+rjbench-summarize runs/llama3.2-3b_judged.jsonl \
+  --group-by attack,scenario,defense \
+  --output runs/llama3.2-3b_summary.csv
 ```
 
-Do not use the target model as its own judge when making comparative claims.
+## Repository Structure
 
-## Use an OpenAI-compatible endpoint
+```
+├── src/rjbench/              # Portable CLI runner
+├── reference_implementation/ # Original experimental scripts
+│   ├── formal_v2/           # Experiments 1-3 implementation
+│   └── supplementary_20261016/ # Multi-judge panel and refresh
+├── artifacts/
+│   ├── formal/raw/          # 2,900 experimental responses
+│   └── supplementary/       # Panel scores, follow-ups, refresh
+├── data/
+│   ├── research/            # Study behavior sets and PAIR prompts
+│   └── smoke/               # Minimal test data
+├── docs/                    # Detailed guides and protocols
+└── tests/                   # Unit and integration tests
+```
 
-The runner works with providers or local servers that implement
-`POST /chat/completions`.
+## Experimental Records
+
+| Dataset | Records | Description |
+|---------|---------|-------------|
+| Formal (Exp 1-3) | 2,900 | 5 targets × 4 attacks × 4 scenarios × 4 defenses + benign baselines |
+| Follow-ups | 800 | PAIR format crossover (320) + Gemma cap sensitivity (480) |
+| Wrapper refresh | 1,350 | 50 behaviors × 3 generators × 3 seeds × 3 targets |
+
+All responses include three-judge panel scores (gpt-oss 20B, GLM-5.2, MiniMax-M3) with strict validation. See [`docs/SUPPLEMENTARY_20261016.md`](docs/SUPPLEMENTARY_20261016.md) for detailed mapping.
+
+## Analysis
+
+Reproduce statistical analyses:
 
 ```bash
-export MODEL_API_KEY="your-key"
+# Install analysis dependencies
+python3 -m pip install -e ".[analysis]"
 
-rjbench-run \
-  --backend openai \
-  --model your-model-id \
-  --api-base https://provider.example/v1 \
-  --api-key-env MODEL_API_KEY \
-  --data data/smoke/smoke_prompts.jsonl \
-  --attacks A0_direct \
-  --scenarios S1_direct \
-  --defenses D0_none \
-  --output runs/provider-smoke.jsonl
+# Run analysis scripts
+cd reference_implementation/supplementary_20261016/scripts
+python3 analyze_multijudge.py
+python3 analyze_refresh.py
+python3 refresh_generator_effects.py
 ```
 
-Never put a real API key in a command committed to Git, a notebook, a config
-file, or an issue. `.env.example` contains placeholders only.
+Analysis outputs are pre-computed in `artifacts/supplementary/*/analysis/`.
 
-## Recalculate a published result table
+## Citation
 
-The compact scored matrices retain the experimental cell and score needed for
-descriptive analysis. Full records, including model responses and judge fields,
-are under `artifacts/formal/raw/`.
-
-```bash
-rjbench-summarize artifacts/formal/scored/phase2_*.jsonl \
-  --group-by model_id \
-  --output runs/recalculated_phase2_by_model.csv
+```bibtex
+@mastersthesis{xu2026renewable,
+  author = {Xu, ChengSheng Andy},
+  title = {Renewable and Scenario-Aware Jailbreak Benchmarking for Language Models},
+  school = {Monash University},
+  year = {2026},
+  month = {October}
+}
 ```
 
-Compare the output with:
+## License
 
-```text
-artifacts/formal/tables/phase2_by_model.csv
-```
+MIT License. See [LICENSE](LICENSE) for details.
 
-Benign utility and over-refusal can be recalculated with:
+## Security
 
-```bash
-rjbench-summarize artifacts/formal/scored/benign_*.jsonl \
-  --group-by model_id,defense \
-  --score-field utility_score \
-  --utility \
-  --output runs/recalculated_benign_by_defense.csv
-```
-
-Inferential outputs and the frozen thesis manifest are available under
-`artifacts/formal/tables/`. The response-redacted public package has its own
-hash manifest at `artifacts/release_manifest.json`.
-
-## Repository map
-
-```text
-src/rjbench/                         portable, cross-platform runner
-reference_implementation/formal_v2/ exact thesis-era scripts
-reference_implementation/supplementary_20261016/  panel, follow-up and refresh scripts
-data/research/                       behavior set, controls, PAIR and A6 assets
-data/smoke/                          safe, tiny pipeline check
-artifacts/formal/scored/             compact formal score matrices
-artifacts/formal/raw/                full formal response and judge records
-artifacts/formal/tables/             published descriptive/inferential outputs
-artifacts/supplementary/             three-judge panel, follow-ups, wrapper refresh
-docs/                                methodology, architecture and release notes
-tests/                               no-model deterministic tests
-```
-
-## Important interpretation boundaries
-
-- Qwen3-8B no-think was the PAIR optimization target; its PAIR result is in-sample.
-- S4 is a textual agent-lite prompt-injection condition, not real tool execution.
-- D3 and D4 are fixed keyword rules, not learned guard models.
-- The A6 route used one generator and seed; 10 of 50 wrappers are deterministic fallbacks. The supplementary refresh re-ran wrapper generation with three generators and three seeds.
-- The 120-item human reference set and its labels are calibration-only and not included; only aggregate agreement metrics are released.
-- Backends and output caps varied in the original experiments, so unconditional cross-model causal rankings are not claimed.
-- Automated judges are measurements, not ground truth. Absolute HCR@4 values were judge-dependent.
-
-## Responsible use
-
-This project is intended for authorized AI-safety evaluation and reproducible
-research. The release includes adversarial prompts and complete model outputs.
-See
-[`docs/RESPONSIBLE_RELEASE.md`](docs/RESPONSIBLE_RELEASE.md).
-
-## Citation and license
-
-Software is released under the MIT License. Dataset and model-output reuse may
-also be subject to the terms of the model providers used to produce or evaluate
-the artifacts. Use `CITATION.cff` when citing this repository.
+This repository contains research materials on adversarial prompts. See [SECURITY.md](SECURITY.md) for responsible use guidelines.

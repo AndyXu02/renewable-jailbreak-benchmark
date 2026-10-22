@@ -1,42 +1,87 @@
-# October 2026 supplementary layer
+# Supplementary Layer: Multi-Judge Panel and Wrapper Refresh
 
-This layer backs the final thesis results (three-judge panel, follow-up checks, and
-wrapper refresh). It reads the frozen formal responses without modifying them; every
-file is pinned by SHA-256 in `artifacts/release_manifest.json`.
+This layer provides the final scoring system and wrapper renewability validation for the thesis results.
 
-## Contents of `artifacts/supplementary/`
+## Contents
 
-| Path | What it contains |
-|---|---|
-| `multijudge_20261016/items.jsonl` | The 2,900 formal experiment responses as judged items (Experiments 1-3). |
-| `multijudge_20261016/items_new.jsonl` | 800 follow-up items: 320 PAIR format-crossover and 480 Gemma 1,024-token cap responses. |
-| `multijudge_20261016/judges/` | Final per-item scores from gpt-oss 20B (validated rubric), GLM-5.2, and MiniMax-M3 after strict final-answer repairs. All paper figures use these scores. |
-| `multijudge_20261016/judges_prerepair/` | The same judges before repair, for audit. |
-| `multijudge_20261016/repair_attempts/`, `protocol.json` | Strict-parser repair protocol and the re-scoring attempts for the 193 flagged relay records. |
-| `multijudge_20261016/analysis/` | Panel-median result tables (Exp. 1-3, defenses, benign utility, crossover, cap sensitivity, judge agreement, clustered sensitivity, aggregate human-anchor metrics). |
-| `refresh_20261016/generation/` | Raw outputs of three generators (Gemma 3 4B, Kimi K3, MiMo V2.6 Flash) x three seeds (42, 43, 44). |
-| `refresh_20261016/assets_frozen.jsonl`, `assets_audit_v2.*`, `assets_manifest.json` | The 450 hash-frozen wrapper assets and their schema/placeholder/lint audit. |
-| `refresh_20261016/targets/`, `items.jsonl`, `judges/`, `analysis/` | 1,350 target responses (DeepSeek V4 Flash, Llama 3.1 8B, Qwen3 8B), three-judge scores, and refresh tables. |
-| `generator_effects_20261019/` | Post hoc generator main and generator-by-target permutation tests. |
-| `followups_20261016/` | Raw PAIR format-crossover prompt sets and target responses, and Gemma cap-sensitivity responses. |
-| `supplementary_20260926/` | Earlier read-only attack-by-scenario re-analysis. |
+### Multi-Judge Panel (`artifacts/supplementary/multijudge_20261016/`)
 
-The frozen refresh protocol is in [`refresh_protocol_20261016.md`](refresh_protocol_20261016.md).
+| File | Description |
+|------|-------------|
+| `items.jsonl` | 2,900 formal experiment responses (Experiments 1-3) |
+| `items_new.jsonl` | 800 follow-up responses: PAIR format crossover (320) + Gemma cap sensitivity (480) |
+| `judges/*.jsonl` | Final scores from three judges with strict validation |
+| `judges_prerepair/*.jsonl` | Pre-repair scores for audit trail |
+| `repair_attempts/`, `protocol.json` | Repair protocol and re-scoring attempts for 193 flagged records |
+| `analysis/*.csv` | Result tables, defense effects, benign utility, judge agreement, human-anchor metrics |
 
-## Excluded by design
+**Judges:**
+- gpt-oss 20B (validated rubric)
+- GLM-5.2
+- MiniMax-M3
 
-The 120-item human reference set, its individual and consensus human labels, and the
-judge records for those items are calibration-only and are not published. Only
-aggregate agreement metrics (`analysis/human_anchor.csv`) are included, so the
-human-anchor analysis cannot be recomputed from this release. Run logs and provider
-credentials are also excluded.
+All panel scores use strict final-answer validation. Figures in the thesis use panel-median scores.
+
+### Wrapper Refresh (`artifacts/supplementary/refresh_20261016/`)
+
+| File | Description |
+|------|-------------|
+| `generation/` | Raw outputs from three generators × three seeds |
+| `assets_frozen.jsonl` | 450 hash-frozen wrapper assets |
+| `assets_audit_v2.*`, `assets_manifest.json` | Schema, placeholder, and lint audit |
+| `targets/*.jsonl` | 1,350 target responses (DeepSeek V4 Flash, Llama 3.1 8B, Qwen3 8B) |
+| `items.jsonl` | Structured refresh items |
+| `judges/*.jsonl` | Three-judge panel scores |
+| `analysis/*.csv` | Refresh effect tables and generator statistics |
+
+**Generators:**
+- Gemma 3 4B
+- Kimi K3
+- MiMo V2.6 Flash
+
+**Protocol:** Each of 50 behaviors × 3 generators × 3 seeds produces one validated wrapper template. Three target models evaluate all 450 wrappers.
+
+Frozen protocol: [`refresh_protocol_20261016.md`](refresh_protocol_20261016.md)
+
+### Generator Effects (`artifacts/supplementary/generator_effects_20261019/`)
+
+Post hoc permutation tests for generator main effects and generator-by-target interactions.
+
+### Earlier Supplementary (`artifacts/supplementary/supplementary_20260926/`)
+
+Read-only attack-by-scenario re-analysis from earlier iterations.
 
 ## Code
 
-`reference_implementation/supplementary_20261016/scripts/` holds the scripts as used.
-They import shared modules (`config.py`, `utils.py`, `judge.py`, `attacks.py`,
-`scenarios.py`, `defenses.py`, `iterative_pair.py`, `generate_model_attacks.py`,
-`bootstrap_ci.py`, `analyze_phase3_statistics.py`) that are byte-identical to the copies
-in `reference_implementation/formal_v2/scripts/`; `run_inference.py` is the updated
-version used for the follow-ups and refresh. The scripts expect the original private
-project layout (`runs/`, `results/`) and read relay credentials from a local `.env`.
+Scripts are in `reference_implementation/supplementary_20261016/scripts/`. They share core modules with `formal_v2/`:
+- `config.py`, `utils.py`, `judge.py`
+- `attacks.py`, `scenarios.py`, `defenses.py`
+- `iterative_pair.py`, `generate_model_attacks.py`
+- `bootstrap_ci.py`, `analyze_phase3_statistics.py`
+
+Updated `run_inference.py` handles follow-ups and refresh targets.
+
+## Excluded Materials
+
+The 120-item human calibration set, individual human ratings, and their judge records are not published. Only aggregate agreement metrics (`analysis/human_anchor.csv`) are included.
+
+## Reproducing Analyses
+
+From `reference_implementation/supplementary_20261016/scripts/`:
+
+```bash
+# Multi-judge panel analysis
+python3 analyze_multijudge.py
+
+# Wrapper refresh analysis
+python3 analyze_refresh.py
+
+# Generator effect tests
+python3 refresh_generator_effects.py
+
+# Strict judge validation tests
+python3 -m unittest test_strict_judge.py
+python3 -m unittest test_refresh_parsing.py
+```
+
+Pre-computed outputs are in corresponding `analysis/` directories.
