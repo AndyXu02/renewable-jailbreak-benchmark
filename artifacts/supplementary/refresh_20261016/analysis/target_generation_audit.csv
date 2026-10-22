@@ -1,0 +1,4 @@
+target,requested_output_cap,responses,errors,finish_stop,finish_length,finish_other,finish_metadata_unavailable,served_model_metadata_unavailable,response_chars_median,response_chars_p95,response_chars_max
+deepseek-v4-flash,1024,450,0,0,0,0,450,450,1122.5,4709.0,6574
+llama3.1-8b,1024,450,0,0,0,0,450,450,33.0,1413.3999999999987,5140
+qwen3-8b-nothink,1024,450,0,0,0,0,450,450,912.5,5086.749999999999,5754

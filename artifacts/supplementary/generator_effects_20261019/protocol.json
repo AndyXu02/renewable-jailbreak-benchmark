@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-10-19T08:32:41.622291+00:00",
+  "read_only_inputs": true,
+  "post_hoc": true,
+  "unit": "behavior (n = 50); outcomes averaged over three requested seeds",
+  "stratum": "end_to_end (fallback rows retained)",
+  "n_permutations": 20000,
+  "main_effect_null": "generator labels exchangeable within behavior (joint over targets)",
+  "interaction_null": "additive generator + target; complete generator profiles permuted among targets within behavior",
+  "multiplicity": "Holm over 3 targets (within-target); Holm over 3 pairs within target (pairwise)"
+}

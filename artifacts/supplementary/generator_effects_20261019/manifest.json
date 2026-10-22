@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-10-19T08:32:41.622291+00:00",
+  "frozen_inputs_modified": false,
+  "sha256": {
+    "results/supplementary_20261016_refresh/items.jsonl": "2021e305c748350fde5d142a5a8b0bbd32f582d3965455f200ea98f93fcf0ccc",
+    "results/supplementary_20261016_refresh/judges/gptoss-rubric.jsonl": "84ef2cbb4a6b0453994bd714164b3e91ba93fba1d589b0840dd86cb23f9223d7",
+    "results/supplementary_20261016_refresh/judges/glm52.jsonl": "71489f0b79fc3f268d6a31697c2cb8f07df032a427b8369cf8422f831754458e",
+    "results/supplementary_20261016_refresh/judges/minimax-m3.jsonl": "29540d6ac67e69c8f3a4850e93b1d1a02e14d1bf651fac15dd3324ab5345f740",
+    "scripts/refresh_generator_effects.py": "ec8cc042207aba430236336249e584a5fb71ec21319dbd527a753946246c4155",
+    "results/supplementary_20261019_generator_effects/generator_omnibus_tests.csv": "407301faf16430aa012b94b9e5ba306cb2bd060c00b4a26022cb57a823ee1edb",
+    "results/supplementary_20261019_generator_effects/generator_pairwise_contrasts.csv": "4ea30e31c0f357ccbdac09cd6f7c0df1c7e4cc43ba9f7147962798e9392903fe",
+    "results/supplementary_20261019_generator_effects/generator_target_cells.csv": "977ecf653a910a6bb9809f1d38319a81d6da0862fd07ffe90eda47f8f2cd0dda",
+    "results/supplementary_20261019_generator_effects/generator_within_target_tests.csv": "1022cff3da13f1a68a4d12cf55ddc55d494f6321ad22ee691473503afba3a9c7",
+    "results/supplementary_20261019_generator_effects/protocol.json": "0804d0f52b3f7a1533154d5ac15df13ccb3bbc641c46488e204a8c32d790e2d1"
+  }
+}

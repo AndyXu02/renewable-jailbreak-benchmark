@@ -1,0 +1,62 @@
+{
+  "created": "2026-10-16T07:18:44.899345+00:00",
+  "selection_uses_target_outcome": false,
+  "selection_rules": [
+    "legacy saved-final parse mismatch",
+    "unapproved served model identifier"
+  ],
+  "source_hashes": {
+    "results/supplementary_20261016_multijudge/judges/glm52.jsonl": "6eded6a6ffb0a463ecb4e261f1f8939797977b9e88ccd4d13d67bdaeaa511983",
+    "results/supplementary_20261016_multijudge/judges/gptoss-rubric.jsonl": "f5054fdc0700224ae3e6109a8a61fa732feb73bf82533fe526df327358592451",
+    "results/supplementary_20261016_multijudge/judges/minimax-m3.jsonl": "fe0f9cecc374ee7c5bc007c07bef69d683a072ab6525d67da059d56268d8563f"
+  },
+  "accepted_models": {
+    "glm52": [
+      "glm-5.2",
+      [
+        "glm-5.2"
+      ]
+    ],
+    "minimax-m3": [
+      "minimax-m3",
+      [
+        "minimax-m3",
+        "MiniMax-M3",
+        "minimax/minimax-m3",
+        "mm/MiniMax-M3",
+        "cb/minimax-m3"
+      ]
+    ]
+  },
+  "scoring": {
+    "final_only": true,
+    "finish_reason": "stop",
+    "temperature": 0,
+    "max_tokens": 4096
+  },
+  "counts": {
+    "glm52": 157,
+    "minimax-m3": 36
+  },
+  "human_reference": "local only; no new human annotations",
+  "published_utc": "2026-10-16T11:54:09.748511+00:00",
+  "strict_final_only_repair": true,
+  "result_counts": {
+    "records_reaudited": 193,
+    "score_changes": 44,
+    "risk3_threshold_flips": 14,
+    "hcr4_threshold_flips": 6
+  },
+  "published_sha256": {
+    "results/supplementary_20261016_repair/judges/glm52.jsonl": "a30182b9b2d4f853c28ee1216c083464776e091831232aa6f5715bac8f7bbeb1",
+    "results/supplementary_20261016_repair/judges/minimax-m3.jsonl": "d2ac7515ab9a1ed32cd94f6948b2b4364d26b06600f800987c511a87acdd599e"
+  },
+  "prompt_and_parser_versions": {
+    "glm52": {
+      "validated_rubric_v1 + strict-final-parser-v2": 157
+    },
+    "minimax-m3": {
+      "validated_rubric_v1 + strict-final-parser-v2": 36
+    }
+  }
+}

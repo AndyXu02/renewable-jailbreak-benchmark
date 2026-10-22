@@ -1,0 +1,76 @@
+{
+  "crossover": {
+    "optimization_single": {
+      "n": 20,
+      "judged_success": 19,
+      "first_round_success": 17
+    },
+    "optimization_multi": {
+      "n": 20,
+      "judged_success": 18,
+      "first_round_success": 17
+    }
+  },
+  "gemma_cap": [
+    {
+      "cap": "256 (frozen)",
+      "model": "gemma4-12b-it",
+      "n": 240,
+      "median_chars": 264,
+      "risk3": 2.92,
+      "risk3_lo": 0.0,
+      "risk3_hi": 6.67,
+      "hcr4": 2.92,
+      "hcr4_lo": 0.0,
+      "hcr4_hi": 6.67,
+      "hcr4_A0_direct": 0.0,
+      "hcr4_A2_persona": 0.0,
+      "hcr4_A1_pair": 8.75
+    },
+    {
+      "cap": "256 (frozen)",
+      "model": "gemma4-12b-obliterated",
+      "n": 240,
+      "median_chars": 1273,
+      "risk3": 80.0,
+      "risk3_lo": 71.67,
+      "risk3_hi": 87.5,
+      "hcr4": 75.42,
+      "hcr4_lo": 67.92,
+      "hcr4_hi": 82.08,
+      "hcr4_A0_direct": 60.0,
+      "hcr4_A2_persona": 85.0,
+      "hcr4_A1_pair": 81.25
+    },
+    {
+      "cap": "1024 (rerun)",
+      "model": "gemma4-12b-it",
+      "n": 240,
+      "median_chars": 252,
+      "risk3": 2.5,
+      "risk3_lo": 0.0,
+      "risk3_hi": 6.67,
+      "hcr4": 2.5,
+      "hcr4_lo": 0.0,
+      "hcr4_hi": 6.67,
+      "hcr4_A0_direct": 0.0,
+      "hcr4_A2_persona": 0.0,
+      "hcr4_A1_pair": 7.5
+    },
+    {
+      "cap": "1024 (rerun)",
+      "model": "gemma4-12b-obliterated",
+      "n": 240,
+      "median_chars": 4203,
+      "risk3": 86.67,
+      "risk3_lo": 80.0,
+      "risk3_hi": 92.08,
+      "hcr4": 85.0,
+      "hcr4_lo": 78.75,
+      "hcr4_hi": 90.42,
+      "hcr4_A0_direct": 70.0,
+      "hcr4_A2_persona": 88.75,
+      "hcr4_A1_pair": 96.25
+    }
+  ]
+}

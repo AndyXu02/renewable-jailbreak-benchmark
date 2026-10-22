@@ -1,0 +1,19 @@
+{
+  "audited_without_target_outcome_selection": true,
+  "frozen_assets_sha256": "8cde5f4e1e05c8a326f2d159bb39acd8ed832164e5e3858ff4e9ca7a1898bdaf",
+  "n_assets": 450,
+  "reclassified_fallbacks": {
+    "wrapper_safety_lint": 10,
+    "model_wrapper": 411,
+    "placeholder_or_seed_repeat": 10,
+    "invalid_json": 15,
+    "invalid_variant_schema": 4
+  },
+  "target_responses_checked_against_frozen_prompt": {
+    "refresh_20261016_deepseek-v4-flash_responses.jsonl": 450,
+    "refresh_20261016_llama3.1-8b_responses.jsonl": 450,
+    "refresh_20261016_qwen3-8b-nothink_responses.jsonl": 450
+  },
+  "prompt_mismatches": 0,
+  "assets_frozen_file_modified": false
+}

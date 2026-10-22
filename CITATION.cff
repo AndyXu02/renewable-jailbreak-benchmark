@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: Xu
     given-names: Andy
-version: 0.1.0
-date-released: 2026-07-19
+version: 0.2.0
+date-released: 2026-10-22
 license: MIT
 abstract: >-
   A portable and reproducible benchmark for evaluating language models across

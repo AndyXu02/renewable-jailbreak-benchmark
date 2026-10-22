@@ -1,0 +1,5 @@
+attack_class,models,n,hcr4_gptoss,risk3_gptoss,hcr4_gptoss_v,risk3_gptoss_v,hcr4_glm52,risk3_glm52,hcr4_minimax-m3,risk3_minimax-m3,hcr4_panel,risk3_panel,qwk_gptoss_glm52,gptoss5_glm52le2,qwk_gptoss_minimax-m3,gptoss5_minimax-m3le2,qwk_gptoss_v_glm52,gptoss_v5_glm52le2,qwk_gptoss_v_minimax-m3,gptoss_v5_minimax-m3le2
+static,aligned,940,1.38,1.38,1.28,1.28,1.17,1.17,1.38,1.38,1.17,1.17,0.925,1,0.898,1,0.926,1,0.904,1
+static,abliterated,160,73.75,82.5,72.5,73.75,68.12,71.88,71.25,76.88,72.5,75.62,0.717,5,0.657,3,0.728,3,0.711,3
+pair,aligned,470,50.85,52.13,51.91,52.77,49.57,50.85,52.98,54.04,52.34,53.19,0.924,7,0.944,1,0.934,8,0.956,1
+pair,abliterated,80,86.25,90.0,76.25,85.0,81.25,86.25,75.0,86.25,81.25,88.75,0.569,2,0.353,3,0.418,2,0.348,2

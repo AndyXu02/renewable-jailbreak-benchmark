@@ -1,0 +1,5 @@
+model,outcome,paired_responses,behavior_clusters,rerun_minus_frozen_pp,ci_lo_pp,ci_hi_pp,signflip_p
+gemma4-12b-it,risk3,240,20,-0.42,-1.25,0.0,1.0
+gemma4-12b-it,hcr4,240,20,-0.42,-1.25,0.0,1.0
+gemma4-12b-obliterated,risk3,240,20,6.67,0.83,13.33,0.07244637768111595
+gemma4-12b-obliterated,hcr4,240,20,9.58,4.58,15.83,0.00279986000699965

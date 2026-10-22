@@ -33,6 +33,69 @@ FORMAL_FILES = {
     "judge_sensitivity": "judge_sensitivity_v2formal_glm52.jsonl",
 }
 
+SUPPLEMENTARY_RESULTS = {
+    "multijudge_20261016": (
+        "supplementary_20261016_repair",
+        ["items.jsonl", "items_new.jsonl", "protocol.json", "analysis/*", "judges/*.jsonl", "repair_attempts/*.jsonl"],
+    ),
+    "multijudge_20261016/judges_prerepair": ("supplementary_20261016_multijudge/judges", ["*.jsonl"]),
+    "multijudge_20261016/prerepair_manifest": ("supplementary_20261016_multijudge", ["supplementary_manifest.json"]),
+    "refresh_20261016": (
+        "supplementary_20261016_refresh",
+        [
+            "assets_frozen.jsonl",
+            "assets_audit_v2.json",
+            "assets_audit_v2.jsonl",
+            "assets_manifest.json",
+            "items.jsonl",
+            "refresh_manifest.json",
+            "analysis/*",
+            "judges/*.jsonl",
+        ],
+    ),
+    "generator_effects_20261019": ("supplementary_20261019_generator_effects", ["*"]),
+    "supplementary_20260926": ("supplementary_20260926", ["*"]),
+}
+SUPPLEMENTARY_RUNS = {
+    "refresh_20261016/generation": "refresh_20261016_*_seed*.jsonl",
+    "refresh_20261016/targets": "refresh_20261016_*_responses.jsonl",
+    "followups_20261016/pair_format_crossover": "pair_xover_*_20261016.jsonl",
+    "followups_20261016/pair_format_crossover_responses": "phase2_xover_*_responses.jsonl",
+    "followups_20261016/gemma_cap1024_responses": "phase2_v3cap1024_*_responses.jsonl",
+}
+SUPPLEMENTARY_SCRIPTS = [
+    "multijudge_build_items.py",
+    "multijudge_build_new_items.py",
+    "multijudge_run.py",
+    "multijudge_analysis.py",
+    "repair_judge_scores.py",
+    "cluster_sensitivity.py",
+    "supplementary_analysis.py",
+    "supplementary_20261016_analysis.py",
+    "pair_format_crossover.py",
+    "run_inference.py",
+    "run_refresh_generate.py",
+    "freeze_refresh_assets.py",
+    "audit_frozen_refresh_assets.py",
+    "build_refresh_items.py",
+    "run_refresh_targets.py",
+    "analyze_refresh.py",
+    "refresh_generator_effects.py",
+    "write_supplementary_manifest.py",
+    "write_repair_manifest.py",
+    "write_refresh_manifest.py",
+    "test_strict_judge.py",
+    "test_refresh_parsing.py",
+    "run_queue_20261016.sh",
+    "run_refresh_generation_20261016.sh",
+    "run_refresh_evaluation_20261016.sh",
+    "wait_refresh_assets_then_evaluate.sh",
+    "audit_refresh_after_targets.sh",
+    "finalize_20261016.sh",
+]
+# Human-reference items and their judge records are calibration-only and never published.
+PRIVATE_ITEM_PREFIX = "human120|"
+
 
 def load_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -88,6 +151,44 @@ def describe(path: Path, root: Path) -> dict:
         "sha256": sha256_file(path),
         "records": records,
     }
+
+
+def copy_public(source_path: Path, target_path: Path) -> None:
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    if source_path.suffix != ".jsonl":
+        shutil.copy2(source_path, target_path)
+        return
+    lines = [
+        line for line in source_path.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not str(json.loads(line).get("item_id", "")).startswith(PRIVATE_ITEM_PREFIX)
+    ]
+    target_path.write_text("".join(line + "\n" for line in lines), encoding="utf-8")
+
+
+def build_supplementary(source: Path, release: Path) -> Path:
+    root = release / "artifacts" / "supplementary"
+    if root.exists():
+        shutil.rmtree(root)
+    for label, (folder, patterns) in SUPPLEMENTARY_RESULTS.items():
+        base = source / "results" / folder
+        for pattern in patterns:
+            matches = sorted(path for path in base.glob(pattern) if path.is_file() and not path.name.startswith("human120"))
+            if not matches:
+                raise SystemExit(f"Missing supplementary input: {base / pattern}")
+            for path in matches:
+                copy_public(path, root / label / path.relative_to(base))
+    for label, pattern in SUPPLEMENTARY_RUNS.items():
+        matches = sorted((source / "runs").glob(pattern))
+        if not matches:
+            raise SystemExit(f"Missing supplementary run: {pattern}")
+        for path in matches:
+            copy_public(path, root / label / path.name)
+    scripts = release / "reference_implementation" / "supplementary_20261016" / "scripts"
+    scripts.mkdir(parents=True, exist_ok=True)
+    for name in SUPPLEMENTARY_SCRIPTS:
+        shutil.copy2(source / "scripts" / name, scripts / name)
+    shutil.copy2(source / "docs" / "refresh_protocol_20261016.md", release / "docs" / "refresh_protocol_20261016.md")
+    return root
 
 
 def main() -> int:
@@ -173,12 +274,20 @@ def main() -> int:
         for path in sorted(folder.iterdir()):
             if path.is_file() and path.name != "release_manifest.json":
                 tracked.append(describe(path, release))
+    supplementary = build_supplementary(source, release)
+    for folder in (supplementary, release / "reference_implementation" / "supplementary_20261016"):
+        tracked.extend(describe(path, release) for path in sorted(folder.rglob("*")) if path.is_file())
     manifest = {
-        "release_version": "0.1.0",
+        "release_version": "0.2.0",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "release_note": "Both full raw formal matrices and response-redacted score matrices are included.",
+        "release_note": (
+            "Full raw formal matrices, response-redacted score matrices, and the October 2026 supplementary "
+            "layer (three-judge panel with strict repairs, follow-ups, and wrapper refresh). Human-reference "
+            "items and labels are excluded."
+        ),
         "formal_scored_records": sum(item.get("records") or 0 for item in tracked if "/scored/" in item["path"]),
-        "formal_raw_records": sum(item.get("records") or 0 for item in tracked if "/raw/" in item["path"] and item["path"].startswith("artifacts/")),
+        "formal_raw_records": sum(item.get("records") or 0 for item in tracked if "/formal/raw/" in item["path"]),
+        "supplementary_records": sum(item.get("records") or 0 for item in tracked if "/supplementary/" in item["path"]),
         "files": tracked,
     }
     manifest_path = release / "artifacts" / "release_manifest.json"

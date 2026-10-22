@@ -1,0 +1,97 @@
+{
+  "frozen_at_utc": "2026-10-16T09:58:44.997033+00:00",
+  "protocol": "docs/refresh_protocol_20261016.md",
+  "n_proposals": 450,
+  "raw_first_pass_valid": 129,
+  "normalized_schema_valid": 421,
+  "outer_fence_normalized": 306,
+  "fallbacks": 39,
+  "fallback_reasons": {
+    "wrapper_safety_lint": 10,
+    "placeholder_or_seed_repeat": 10,
+    "invalid_json": 15,
+    "invalid_variant_schema": 4
+  },
+  "safety_lint_version": "explicit-procedure-request-phrases-v1",
+  "safety_lint_flags": {
+    "\\bconceptual\\s+script\\s+outline\\b": 1,
+    "\\b(?:detailed|complete|full)\\s+(?:technical|operational|actionable)\\s+(?:explanation|instructions|steps|procedures?|details)\\b": 2,
+    "\\bstep[- ]by[- ]step\\b": 7,
+    "\\b(?:full|complete|working)\\s+(?:code|script|instructions|procedures?)\\b": 1
+  },
+  "by_generator_seed": {
+    "gemma3-4b/seed42": {
+      "n": 50,
+      "raw_valid": 0,
+      "normalized_valid": 44,
+      "fallback": 6
+    },
+    "gemma3-4b/seed43": {
+      "n": 50,
+      "raw_valid": 0,
+      "normalized_valid": 46,
+      "fallback": 4
+    },
+    "gemma3-4b/seed44": {
+      "n": 50,
+      "raw_valid": 0,
+      "normalized_valid": 43,
+      "fallback": 7
+    },
+    "kimi-k3/seed42": {
+      "n": 50,
+      "raw_valid": 38,
+      "normalized_valid": 44,
+      "fallback": 6
+    },
+    "kimi-k3/seed43": {
+      "n": 50,
+      "raw_valid": 32,
+      "normalized_valid": 45,
+      "fallback": 5
+    },
+    "kimi-k3/seed44": {
+      "n": 50,
+      "raw_valid": 33,
+      "normalized_valid": 46,
+      "fallback": 4
+    },
+    "mimo-v2.6-flash/seed42": {
+      "n": 50,
+      "raw_valid": 12,
+      "normalized_valid": 44,
+      "fallback": 6
+    },
+    "mimo-v2.6-flash/seed43": {
+      "n": 50,
+      "raw_valid": 5,
+      "normalized_valid": 49,
+      "fallback": 1
+    },
+    "mimo-v2.6-flash/seed44": {
+      "n": 50,
+      "raw_valid": 9,
+      "normalized_valid": 50,
+      "fallback": 0
+    }
+  },
+  "assets_sha256": {
+    "runs/refresh_20261016_gemma3-4b_seed42.jsonl": "ddfe7cdfceec5999e77dbeacb415f4da789b81f060f3392a01f8070083042b80",
+    "runs/refresh_20261016_gemma3-4b_seed43.jsonl": "a94e48d97ce2d49547c8a6235b434b227443919aa59ea789f3dea77b66c10999",
+    "runs/refresh_20261016_gemma3-4b_seed44.jsonl": "868eae9062db3f30651b86de69840cb951acb2f2243a43cadf92ccd923721741",
+    "runs/refresh_20261016_kimi-k3_seed42.jsonl": "87ffb6445f3d2e672520bbddfa60aa4ed75fafc2456f0a877962d5502c9ca521",
+    "runs/refresh_20261016_kimi-k3_seed43.jsonl": "21a7726c33479a4806279f63ac6b1da9706ad41df49cf5adeacec377aa2fcda4",
+    "runs/refresh_20261016_kimi-k3_seed44.jsonl": "df00511e659fe977f417802328bd8cc2d22176db08f1f0a8b866e432558df677",
+    "runs/refresh_20261016_mimo-v2.6-flash_seed42.jsonl": "8bc2f19c59e5afd97f704392ed5fe0a5dd7023eb8e870a962e4faece85d5b182",
+    "runs/refresh_20261016_mimo-v2.6-flash_seed43.jsonl": "bf6be0fd12cd4756810c5e50458e8b348fe0cefb6eb381b40accc41df27a3f9d",
+    "runs/refresh_20261016_mimo-v2.6-flash_seed44.jsonl": "d230108e50095b74a0dd3ee1ac0bb518aa38a6b14b451caaf09ca260bbf6fda9"
+  },
+  "candidate_file_frozen": true,
+  "target_results_seen_before_freeze": false,
+  "protocol_amendment": "Before target outcomes were observed: strip only one outer fenced-JSON container; apply versioned explicit procedure-request phrase lint; preserve raw outputs and report raw/schema/lint pass rates separately.",
+  "safety_lint_passed": 411,
+  "final_usable_assets": 411,
+  "metadata_audited_utc": "2026-10-16T15:49:28.097790+00:00",
+  "metadata_audit_uses_target_outcomes": false,
+  "assets_frozen_file_sha256_verified": "8cde5f4e1e05c8a326f2d159bb39acd8ed832164e5e3858ff4e9ca7a1898bdaf"
+}

@@ -3,6 +3,9 @@
 This repository supports defensive red teaming and includes jailbreak prompt
 assets. The release contains complete formal target-model responses and judge
 fields for response-level reproduction, alongside compact score-only matrices.
+The supplementary layer adds three-judge scores, follow-up responses, and the
+wrapper-refresh assets and responses. The human reference items and individual
+human labels are calibration-only and are not released.
 
 The harmful behavior set describes malicious objectives but was designed not to
 seed executable code, material quantities, exploit parameters, or procedural

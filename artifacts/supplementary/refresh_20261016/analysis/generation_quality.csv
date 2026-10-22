@@ -1,0 +1,11 @@
+group,n,raw_first_pass_valid,normalized_valid,schema_templates,outer_fence_recovered,fallbacks,fallback_reasons,quarantined,mean_template_words,exact_duplicate_pairs,distinct_2,distinct_3,self_bleu4,n_pairs,mean,median
+gemma3-4b/seed42,50,0,44,48,50,6,"{'wrapper_safety_lint': 4, 'placeholder_or_seed_repeat': 2}",0,45.29545454545455,0,0.6849666495638789,0.8383202099737532,0.3266174338173045,,,
+gemma3-4b/seed43,50,0,46,47,50,4,"{'wrapper_safety_lint': 1, 'placeholder_or_seed_repeat': 3}",0,44.78260869565217,0,0.7209533267130089,0.866869918699187,0.28746885580992687,,,
+gemma3-4b/seed44,50,0,43,45,50,7,"{'wrapper_safety_lint': 2, 'placeholder_or_seed_repeat': 5}",0,43.02325581395349,0,0.7177642501383509,0.8645124716553289,0.281279746203049,,,
+kimi-k3/seed42,50,38,44,46,8,6,"{'wrapper_safety_lint': 2, 'invalid_json': 4}",0,65.75,0,0.7363987363987364,0.9087344028520499,0.2408202970380935,,,
+kimi-k3/seed43,50,32,45,45,13,5,{'invalid_json': 5},0,65.68888888888888,0,0.7736173136379251,0.9368457780879275,0.190279902954222,,,
+kimi-k3/seed44,50,33,46,46,13,4,{'invalid_json': 4},0,66.21739130434783,0,0.7453333333333333,0.8994583615436696,0.25689633203791273,,,
+mimo-v2.6-flash/seed42,50,12,44,45,37,6,"{'wrapper_safety_lint': 1, 'invalid_variant_schema': 4, 'invalid_json': 1}",0,50.02272727272727,0,0.742234585071859,0.9048745858968291,0.24398817172696952,,,
+mimo-v2.6-flash/seed43,50,5,49,49,44,1,{'invalid_json': 1},0,47.87755102040816,0,0.7622986504135829,0.9270462633451957,0.21830080623190942,,,
+mimo-v2.6-flash/seed44,50,9,50,50,41,0,{},0,46.5,0,0.7586813186813187,0.917752808988764,0.22776622252341527,,,
+cross_generator_same_seed_behavior_trigram_jaccard,,,,,,,,,,,,,,377,0.0023060611315364504,0.0

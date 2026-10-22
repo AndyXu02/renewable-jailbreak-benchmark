@@ -27,6 +27,13 @@ The formal route contains 2,900 scored experiment records, plus a separate
 100-record second-judge sensitivity sample. This release includes both the full
 3,000-record raw matrices and compact response-redacted score matrices.
 
+The October 2026 supplementary layer (`artifacts/supplementary/`) contains the
+final thesis scoring and follow-ups: three-judge panel scores (gpt-oss 20B,
+GLM-5.2, MiniMax-M3) with strict repairs for all 2,900 formal responses, 800
+follow-up responses (PAIR format crossover and Gemma cap sensitivity), and the
+1,350-response wrapper refresh built from 450 frozen assets by three generators
+and three seeds. See [`docs/SUPPLEMENTARY_20261016.md`](docs/SUPPLEMENTARY_20261016.md).
+
 ## 60-second integrity check
 
 Only Python 3.10+ is required. The integrity check does not download a model or
@@ -172,11 +179,13 @@ hash manifest at `artifacts/release_manifest.json`.
 ```text
 src/rjbench/                         portable, cross-platform runner
 reference_implementation/formal_v2/ exact thesis-era scripts
+reference_implementation/supplementary_20261016/  panel, follow-up and refresh scripts
 data/research/                       behavior set, controls, PAIR and A6 assets
 data/smoke/                          safe, tiny pipeline check
 artifacts/formal/scored/             compact formal score matrices
 artifacts/formal/raw/                full formal response and judge records
 artifacts/formal/tables/             published descriptive/inferential outputs
+artifacts/supplementary/             three-judge panel, follow-ups, wrapper refresh
 docs/                                methodology, architecture and release notes
 tests/                               no-model deterministic tests
 ```
@@ -186,7 +195,8 @@ tests/                               no-model deterministic tests
 - Qwen3-8B no-think was the PAIR optimization target; its PAIR result is in-sample.
 - S4 is a textual agent-lite prompt-injection condition, not real tool execution.
 - D3 and D4 are fixed keyword rules, not learned guard models.
-- The A6 route used one generator and seed; 10 of 50 wrappers are deterministic fallbacks.
+- The A6 route used one generator and seed; 10 of 50 wrappers are deterministic fallbacks. The supplementary refresh re-ran wrapper generation with three generators and three seeds.
+- The 120-item human reference set and its labels are calibration-only and not included; only aggregate agreement metrics are released.
 - Backends and output caps varied in the original experiments, so unconditional cross-model causal rankings are not claimed.
 - Automated judges are measurements, not ground truth. Absolute HCR@4 values were judge-dependent.
 
